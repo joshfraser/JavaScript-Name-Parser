@@ -21,7 +21,7 @@ Array.prototype.implode = function (separator) {
     return output;
 };
 String.prototype.trim = function() {
-    return this.replace(/^\s+|\s+$/g,"");
+    return this.replace(/^\s+|\s+$|\,$/g,"");
 };
 String.prototype.ucfirst = function() {
     return this.substr(0,1).toUpperCase() + this.substr(1,this.length - 1).toLowerCase();
@@ -138,7 +138,7 @@ function NameParse() {
 	//  detect and format common suffixes 
 	this.is_suffix = function (word) {
 		// ignore periods
-		word = word.replace(".","").toLowerCase();
+		word = word.replace(/\./g,"").toLowerCase();
 		// these are some common suffixes - what am I missing?
 		var suffixArray = ['I','II','III','IV','V','Senior','Junior','Jr','Sr','PhD','APR','RPh','PE','MD','MA','DMD','CME'];
 		for (var i=0; i<suffixArray.length; i++) {
