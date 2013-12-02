@@ -20,9 +20,11 @@ Array.prototype.implode = function (separator) {
     }
     return output;
 };
-String.prototype.trim = function() {
-    return this.replace(/^\s+|\s+$|\,$/g,"");
-};
+if (!String.prototype.trim) {
+  String.prototype.trim = function () {
+    return this.replace(/^\s+|\s+$/gm, '');
+  };
+}
 String.prototype.ucfirst = function() {
     return this.substr(0,1).toUpperCase() + this.substr(1,this.length - 1).toLowerCase();
 };
