@@ -11,15 +11,6 @@ Array.prototype.in_array = function (value) {
     }
     return false;
 };
-Array.prototype.implode = function (separator) {
-    var output = "";
-    var sep = "";
-    for (var i = 0; i < this.length; i++) {
-        output += sep + this[i];
-        sep = separator;
-    }
-    return output;
-};
 if (!String.prototype.trim) {
   String.prototype.trim = function () {
     return this.replace(/^\s+|\s+$/gm, '');
@@ -193,6 +184,6 @@ function NameParse() {
 			var thisWord = parts[i];
 			words[i] = (me.is_camel_case(thisWord)) ? thisWord : thisWord.ucfirst.toLowerCase();
 		}
-		return words.implode(seperator);
+		return words.join(seperator);
 	};
 }
