@@ -184,7 +184,7 @@ function NameParse() {
 		parts = word.split(seperator);
 		for (var i=0; i<parts.length; i++) {
 			var thisWord = parts[i];
-			words[i] = (me.is_camel_case(thisWord)) ? thisWord : thisWord.ucfirst.toLowerCase();
+			words[i] = (me.is_camel_case(thisWord)) ? thisWord : thisWord.ucfirst();
 		}
 		return words.join(seperator);
 	};
