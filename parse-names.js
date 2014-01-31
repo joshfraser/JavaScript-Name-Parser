@@ -33,7 +33,6 @@ function NameParse() {
 		fullastName = fullastName.trim();
 		// split into words
 		var unfilteredNameParts = fullastName.split(" ");
-		var name = {};
 		var nameParts = [];
 		var lastName = "";
 		var firstName = "";
@@ -96,13 +95,13 @@ function NameParse() {
 		}
 		
 		// return the various parts in an array
-		name.salutation = (salutation != false) ? salutation : "";
-		name.firstName = (firstName != "") ? firstName.trim() : "";
-		name.initials = (initials != "") ? initials.trim() : "";
-		name.lastName = (lastName != "") ? lastName.trim() : "";
-		name.suffix = (suffix != false) ? suffix : "";
-		
-		return name;
+		return {
+			"salutation": salutation || "",
+			"firstName": firstName.trim(),
+			"initials": initials.trim(),
+			"lastName": lastName.trim(),
+			"suffix": suffix || ""
+		};
 	};
 	
 	// detect and format standard salutations 
