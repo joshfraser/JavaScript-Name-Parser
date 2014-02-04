@@ -10,7 +10,9 @@ if (!String.prototype.trim) {
 }
 
 var NameParse = (function(){
-	function NameParse() {}
+	function NameParse() {
+		return NameParse;
+	}
 	
 		// split full names into the following parts:
 		// - prefix / salutation  (Mr., Mrs., etc)
