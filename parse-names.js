@@ -27,6 +27,7 @@ NameParse.parse = function (fullastName) {
 	var lastName = "";
 	var firstName = "";
 	var initials = "";
+	var word = null;
 	var j = 0;
 	var i = 0;
 
@@ -44,34 +45,35 @@ NameParse.parse = function (fullastName) {
 	var start = (salutation) ? 1 : 0;
 	var end = (suffix) ? numWords - 1 : numWords;
 
+	word = nameParts[start];
+	// if we start off with an initial, we'll call it the first name
+	if (this.is_initial(word)) {
+		// if so, do a look-ahead to see if they go by their middle name 
+		// for ex: "R. Jason Smith" => "Jason Smith" & "R." is stored as an initial
+		// but "R. J. Smith" => "R. Smith" and "J." is stored as an initial
+		if (this.is_initial(nameParts[start + 1])) {
+			firstName += " " + word.toUpperCase();
+		} else {
+			initials += " " + word.toUpperCase();
+		}
+	} else {
+		firstName += " " + this.fix_case(word);
+	}
+
 	// concat the first name
-	for (i=start; i<(end - 1); i++) {
+	for (i=start + 1; i<(end - 1); i++) {
 		word = nameParts[i];
 		// move on to parsing the last name if we find an indicator of a compound last name (Von, Van, etc)
-		// we use i != start to allow for rare cases where an indicator is actually the first name (like "Von Fabella")
-		if (this.is_compound_lastName(word) && i != start) {
+		// we do not check earlier to allow for rare cases where an indicator is actually the first name (like "Von Fabella")
+		if (this.is_compound_lastName(word)) {
 			break;
 		}
-		// is it a middle initial or part of their first name?
-		// if we start off with an initial, we'll call it the first name
+
 		if (this.is_initial(word)) {
-			// is the initial the first word?  
-			if (i == start) {
-				// if so, do a look-ahead to see if they go by their middle name 
-				// for ex: "R. Jason Smith" => "Jason Smith" & "R." is stored as an initial
-				// but "R. J. Smith" => "R. Smith" and "J." is stored as an initial
-				if (this.is_initial(nameParts[i + 1])) {
-					firstName += " " +  word.toUpperCase();
-				} else {
-					initials += " " +  word.toUpperCase();
-				}
-			// otherwise, just go ahead and save the initial
-			} else {
-				initials += " " +  word.toUpperCase(); 
-			}
+			initials += " " + word.toUpperCase(); 
 		} else {
 			firstName += " " + this.fix_case(word);
-		}   
+		}
 	}
 		
 	// check that we have more than 1 word in our string
