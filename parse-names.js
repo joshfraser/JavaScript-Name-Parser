@@ -105,17 +105,17 @@ var NameParse = (function(){
 	NameParse.is_salutation = function (word) {
 		word = this.removeIgnoredChars(word).toLowerCase();
 		// returns normalized values
-		if (word == "mr" || word == "master" || word == "mister") {
+		if (word === "mr" || word === "master" || word === "mister") {
 			return "Mr.";
-		} else if (word == "mrs") {
+		} else if (word === "mrs") {
 			return "Mrs.";
-		} else if (word == "miss" || word == "ms") {
+		} else if (word === "miss" || word === "ms") {
 			return "Ms.";
-		} else if (word == "dr") {
+		} else if (word === "dr") {
 			return "Dr.";
-		} else if (word == "rev") {
+		} else if (word === "rev") {
 			return "Rev.";
-		} else if (word == "fr") {
+		} else if (word === "fr") {
 			return "Fr.";
 		} else {
 			return false;
@@ -149,13 +149,13 @@ var NameParse = (function(){
 		word = word.toLowerCase();
 		// these are some common prefixes that identify a compound last names - what am I missing?
 		var words = ['vere','von','van','de','del','della','di','da','pietro','vanden','du','st.','st','la','lo','ter'];
-		return words.indexOf(word) >= 0;
+		return (words.indexOf(word) >= 0);
 	};
 
 	// single letter, possibly followed by a period
 	NameParse.is_initial = function (word) {
 		word = this.removeIgnoredChars(word);
-		return (word.length == 1);
+		return (word.length === 1);
 	};
 
 	// detect mixed case words like "McDonald"
@@ -183,7 +183,7 @@ var NameParse = (function(){
 			if(this.is_camel_case(thisWord)) {
 				return thisWord;
 			} else {
-				return thisWord.substr(0,1).toUpperCase() + thisWord.substr(1).toLowerCase()
+				return thisWord.substr(0,1).toUpperCase() + thisWord.substr(1).toLowerCase();
 			}
 		}, this).join(seperator);
 	};
