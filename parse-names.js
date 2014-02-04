@@ -95,11 +95,15 @@ var NameParse = (function(){
 		};
 	};
 
+	NameParse.removeIgnoredChars = function (word) {
+		//ignore periods
+		return word.replace(".","");
+	};
+
 	// detect and format standard salutations 
 	// I'm only considering english honorifics for now & not words like 
 	NameParse.is_salutation = function (word) {
-		// ignore periods
-		word = word.replace(".","").toLowerCase();
+		word = this.removeIgnoredChars(word).toLowerCase();
 		// returns normalized values
 		if (word == "mr" || word == "master" || word == "mister") {
 			return "Mr.";
@@ -120,8 +124,7 @@ var NameParse = (function(){
 
 	//  detect and format common suffixes 
 	NameParse.is_suffix = function (word) {
-		// ignore periods
-		word = word.replace(/\./g,"").toLowerCase();
+		word = this.removeIgnoredChars(word).toLowerCase();
 		// these are some common suffixes - what am I missing?
 		var suffixArray = ['I','II','III','IV','V','Senior','Junior','Jr','Sr','PhD','APR','RPh','PE','MD','MA','DMD','CME'];
 
@@ -146,8 +149,7 @@ var NameParse = (function(){
 
 	// single letter, possibly followed by a period
 	NameParse.is_initial = function (word) {
-		// ignore periods
-		word = word.replace(".","");
+		word = this.removeIgnoredChars(word);
 		return (word.length == 1);
 	};
 
