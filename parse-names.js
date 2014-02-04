@@ -126,7 +126,12 @@ var NameParse = (function(){
 	NameParse.is_suffix = function (word) {
 		word = this.removeIgnoredChars(word).toLowerCase();
 		// these are some common suffixes - what am I missing?
-		var suffixArray = ['I','II','III','IV','V','Senior','Junior','Jr','Sr','PhD','APR','RPh','PE','MD','MA','DMD','CME'];
+		var suffixArray = [
+			'I','II','III','IV','V','Senior','Junior','Jr','Sr','PhD','APR','RPh','PE','MD','MA','DMD','CME',
+			"BVM","CFRE","CLU","CPA","CSC","CSJ","DC","DD","DDS","DO","DVM","EdD","Esq",
+			"JD","LLD","OD","OSB","PC","Ret","RGS","RN","RNC","SHCJ","SJ","SNJM","SSMO",
+			"USA","USAF","USAFR","USAR","USCG","USMC","USMCR","USN","USNR"
+		];
 
 		var suffixIndex = suffixArray.map(function(suffix){
 			return suffix.toLowerCase();
