@@ -39,7 +39,7 @@ NameParse.parse = function (fullastName) {
 	var numWords = nameParts.length;
 	// is the first word a title? (Mr. Mrs, etc)
 	var salutation = this.is_salutation(nameParts[0]);
-	var suffix = this.is_suffix(nameParts[nameParts.length - 1]);
+	var suffix = this.is_suffix(nameParts[numWords - 1]);
 	// set the range for the middle part of the name (trim prefixes & suffixes)
 	var start = (salutation) ? 1 : 0;
 	var end = (suffix) ? numWords - 1 : numWords;
