@@ -3,12 +3,6 @@
 // ported to JavaScript by Mark Pemburn (pemburnia.com)
 // released under Apache 2.0 license
 
-if (!String.prototype.trim) {
-  String.prototype.trim = function () {
-    return this.replace(/^\s+|\s+$/gm, '');
-  };
-}
-
 var NameParse = (function(){
 	function NameParse() {
 		return NameParse;
