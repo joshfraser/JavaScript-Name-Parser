@@ -3,14 +3,6 @@
 // ported to JavaScript by Mark Pemburn (pemburnia.com)
 // released under Apache 2.0 license
 
-Array.prototype.in_array = function (value) {
-    for (var i = 0; i < this.length; i++) {
-        if (this[i] == value) {
-            return true;
-        }
-    }
-    return false;
-};
 if (!String.prototype.trim) {
   String.prototype.trim = function () {
     return this.replace(/^\s+|\s+$/gm, '');
@@ -30,20 +22,20 @@ function NameParse() {}
 	// - suffix (II, Phd, Jr, etc)
 NameParse.parse = function (fullastName) {
 	fullastName = fullastName.trim();
-	// split into words
-	var unfilteredNameParts = fullastName.split(" ");
+
 	var nameParts = [];
 	var lastName = "";
 	var firstName = "";
 	var initials = "";
 	var j = 0;
 	var i = 0;
+
+	// split into words
 	// completely ignore any words in parentheses
-	for (i=0; i<unfilteredNameParts.length; i++) {
-		if (unfilteredNameParts[i].indexOf("(") == -1) {
-			nameParts[j++] = unfilteredNameParts[i];
-		}
-	}
+	nameParts = fullastName.split(" ").filter(function(namePart){
+		return (namePart.indexOf("(") === -1);
+	});
+
 	var numWords = nameParts.length;
 	// is the first word a title? (Mr. Mrs, etc)
 	var salutation = this.is_salutation(nameParts[0]);
@@ -132,12 +124,16 @@ NameParse.is_suffix = function (word) {
 	word = word.replace(/\./g,"").toLowerCase();
 	// these are some common suffixes - what am I missing?
 	var suffixArray = ['I','II','III','IV','V','Senior','Junior','Jr','Sr','PhD','APR','RPh','PE','MD','MA','DMD','CME'];
-	for (var i=0; i<suffixArray.length; i++) {
-		if (suffixArray[i].toLowerCase() == word) {
-			return suffixArray[i];
-		}
+
+	var suffixIndex = suffixArray.map(function(suffix){
+		return suffix.toLowerCase();
+	}).indexOf(word);
+
+	if(suffixIndex >= 0) {
+		return suffixArray[suffixIndex];
+	} else {
+		return false;
 	}
-	return false;
 };
 
 // detect compound last names like "Von Fange"
@@ -145,7 +141,7 @@ NameParse.is_compound_lastName = function (word) {
 	word = word.toLowerCase();
 	// these are some common prefixes that identify a compound last names - what am I missing?
 	var words = ['vere','von','van','de','del','della','di','da','pietro','vanden','du','st.','st','la','lo','ter'];
-	return words.in_array(word);
+	return words.indexOf(word) >= 0;
 };
 
 // single letter, possibly followed by a period
@@ -175,14 +171,10 @@ NameParse.fix_case = function (word) {
 	return word;
 };
 
-// helper this.for fix_case
+// helper for this.fix_case
+// uppercase words split by the seperator (ex. dashes or periods)
 NameParse.safe_ucfirst = function (seperator, word) {
-	var words = [];
-	// uppercase words split by the seperator (ex. dashes or periods)
-	parts = word.split(seperator);
-	for (var i=0; i<parts.length; i++) {
-		var thisWord = parts[i];
-		words[i] = (this.is_camel_case(thisWord)) ? thisWord : thisWord.ucfirst();
-	}
-	return words.join(seperator);
+	return word.split(seperator).map(function(thisWord){
+		return this.is_camel_case(thisWord) ? thisWord : thisWord.ucfirst();
+	}, this).join(seperator);
 };
