@@ -8,9 +8,6 @@ if (!String.prototype.trim) {
     return this.replace(/^\s+|\s+$/gm, '');
   };
 }
-String.prototype.ucfirst = function() {
-    return this.substr(0,1).toUpperCase() + this.substr(1,this.length - 1).toLowerCase();
-};
 
 function NameParse() {}
 	
@@ -177,6 +174,10 @@ NameParse.fix_case = function (word) {
 // uppercase words split by the seperator (ex. dashes or periods)
 NameParse.safe_ucfirst = function (seperator, word) {
 	return word.split(seperator).map(function(thisWord){
-		return this.is_camel_case(thisWord) ? thisWord : thisWord.ucfirst();
+		if(this.is_camel_case(thisWord)) {
+			return thisWord;
+		} else {
+			return thisWord.substr(0,1).toUpperCase() + thisWord.substr(1).toLowerCase()
+		}
 	}, this).join(seperator);
 };
