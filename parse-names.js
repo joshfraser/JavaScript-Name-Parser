@@ -82,9 +82,6 @@ var NameParse = (function(){
 			for (j=i; j<end; j++) {
 				lastName += " " + this.fix_case(nameParts[j]);
 			}
-		} else {
-			// otherwise, single word strings are assumed to be first names
-			firstName = this.fix_case(nameParts[i]);
 		}
 	
 		// return the various parts in an array
