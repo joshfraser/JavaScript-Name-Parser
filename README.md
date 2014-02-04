@@ -2,8 +2,7 @@ JavaScript library to split names into their respective components (first, last,
 
 **Usage:**
 
-    var parser = new NameParse();
-    var parsed = parser.parse("Mr. Chales P. Wooten, III");
+    var parsed = NameParse.parse("Mr. Chales P. Wooten, III");
 
 **Results:**
 
