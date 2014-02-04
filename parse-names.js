@@ -155,12 +155,10 @@ var NameParse = (function(){
 
 	// detect mixed case words like "McDonald"
 	// returns false if the string is all one case
-	// FIXME: No it doesn't. It returns true so long as there is a letter in the string, or if it's empty
-	// FIXME: Also this does not take in to account the first letter being capitalized
 	NameParse.is_camel_case = function (word) {
-		var ucReg = /|[A-Z]+|s/;
-		var lcReg = /|[a-z]+|s/;
-		return (word.match(ucReg) != null && word.match(lcReg) != null);
+		var ucReg = /[A-Z]+/;
+		var lcReg = /[a-z]+/;
+		return (ucReg.exec(word) && lcReg.exec(word));
 	};
 
 	// ucfirst words split by dashes or periods
