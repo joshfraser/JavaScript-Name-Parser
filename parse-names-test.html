@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<title>Javascript Name Parser Unit Tests</title>
+		<link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.14.0.css" />
+	</head>
+	<body>
+		<div id="qunit"></div>
+		<div id="qunit-fixture"></div>
+		<script src="http://code.jquery.com/qunit/qunit-1.14.0.js"></script>
+		<script src="browser-shims.js"></script>
+		<script src="parse-names.js"></script>
+		<script>
+			var names = [
+			{
+				name: "John Doe",
+				result: {
+					"salutation": "",
+					"firstName": "John",
+					"initials": "",
+					"lastName": "Doe",
+					"suffix": ""
+				}
+			}, {
+				name: "Mr Anthony R Von Fange III",
+				result: {
+					"salutation": "Mr.",
+					"firstName": "Anthony",
+					"initials": "R",
+					"lastName": "Von Fange",
+					"suffix": "III"
+				}
+			}, {
+				name: "Sara Ann Fraser",
+				result: {
+					"salutation": "",
+					"firstName": "Sara Ann",
+					"initials": "",
+					"lastName": "Fraser",
+					"suffix": ""
+				}
+			}, {
+				name: "Adam",
+				result: {
+					"salutation": "",
+					"firstName": "Adam",
+					"initials": "",
+					"lastName": "",
+					"suffix": ""
+				}
+			}, {
+				name: "Jonathan Smith",
+				result: {
+					"salutation": "",
+					"firstName": "Jonathan",
+					"initials": "",
+					"lastName": "Smith",
+					"suffix": ""
+				}
+			}, {
+				name: "Anthony Von Fange III",
+				result: {
+					"salutation": "",
+					"firstName": "Anthony",
+					"initials": "",
+					"lastName": "Von Fange",
+					"suffix": "III"
+				}
+			}, {
+				name: "Mr John Doe",
+				result: {
+					"salutation": "Mr.",
+					"firstName": "John",
+					"initials": "",
+					"lastName": "Doe",
+					"suffix": ""
+				}
+			}, {
+				name: "Smarty Pants Phd",
+				result: {
+					"salutation": "",
+					"firstName": "Smarty",
+					"initials": "",
+					"lastName": "Pants",
+					"suffix": "PhD"
+				}
+			}, {
+				name: "Mark P Williams",
+				result: {
+					"salutation": "",
+					"firstName": "Mark",
+					"initials": "P",
+					"lastName": "Williams",
+					"suffix": ""
+				}
+			}];
+
+			test('Test names', function() {
+				names.forEach(function(testCase){
+					console.log("Check Name: %s", testCase.name);
+					var parsed = NameParse.parse(testCase.name);
+					propEqual(parsed, testCase.result);
+				});
+			});
+		</script>
+	</body>
+</html>
