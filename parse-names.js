@@ -147,6 +147,7 @@ var NameParse = (function(){
 
 	// single letter, possibly followed by a period
 	NameParse.is_initial = function (word) {
+		if (!word) { return false; }
 		word = this.removeIgnoredChars(word);
 		return (word.length === 1);
 	};
