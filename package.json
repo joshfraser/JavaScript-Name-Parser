@@ -1,0 +1,19 @@
+{
+  "name": "name-parser",
+  "version": "1.0.0",
+  "description": "JavaScript code to split names into their respective components (first, last, etc)",
+  "main": "parse-names.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshfraser/JavaScript-Name-Parser.git"
+  },
+  "author": "joshfraser",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/joshfraser/JavaScript-Name-Parser/issues"
+  },
+  "homepage": "https://github.com/joshfraser/JavaScript-Name-Parser#readme"
+}
