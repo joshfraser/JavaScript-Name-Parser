@@ -60,7 +60,10 @@ var NameParse = (function(){
 			// move on to parsing the last name if we find an indicator of a compound last name (Von, Van, etc)
 			// we do not check earlier to allow for rare cases where an indicator is actually the first name (like "Von Fabella")
 			if (this.is_compound_lastName(word)) {
-				break;
+			    if (!(this.is_initial(word) && word === word.toUpperCase())) {
+			        //If it's one letter and capitalized, consider it a middle initial
+			        break;
+			    }
 			}
 
 			if (this.is_initial(word)) {
